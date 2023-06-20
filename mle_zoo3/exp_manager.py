@@ -738,6 +738,22 @@ class ExperimentManager:
         kwargs.update(sampled_hyperparams)
 
         n_envs = 1 if self.algo == "ars" else self.n_envs
+
+        # My addition
+        env_params = {
+            "lookback": trial.suggest_categorical("lookback", [5, 10, 15]),
+            "norm_cash": trial.suggest_categorical("norm_cash", [2 ** -12, 2 ** -13, 2 ** -14]),
+            # Could be bigger, since 2 ** -7 is always the best. Adding 2 ** -6
+            "norm_stocks": trial.suggest_categorical("norm_stocks", [2 ** -8, 2 ** -7]),
+            # "norm_tech": trial.suggest_categorical("norm_tech", [2 ** -16, 2 ** -15, 2 ** -14]),
+            # "norm_tech": trial.suggest_categorical("norm_tech", [1e-3]),
+            'norm_tech': 1e-3,
+            # Could be smaller, since 2 ** -11 is by far the best, adding 2 ** -12
+            "norm_reward": trial.suggest_categorical("norm_reward", [2 ** -12, 2 ** -11]),
+            "norm_action": trial.suggest_categorical("norm_action", [11_000, 11_500, 12_000])
+        }
+        self.env_kwargs.update(env_params)
+
         env = self.create_envs(n_envs, no_log=True)
 
         # By default, do not activate verbose output to keep

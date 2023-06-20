@@ -26,7 +26,7 @@ class TrialEvalCallback(EvalCallback):
         n_eval_episodes: int = 5,
         eval_freq: int = 10000,
         deterministic: bool = True,
-        verbose: int = 0,
+        verbose: int = 2,
         best_model_save_path: Optional[str] = None,
         log_path: Optional[str] = None,
     ) -> None:
@@ -67,7 +67,7 @@ class SaveVecNormalizeCallback(BaseCallback):
         only one file will be kept.
     """
 
-    def __init__(self, save_freq: int, save_path: str, name_prefix: Optional[str] = None, verbose: int = 0):
+    def __init__(self, save_freq: int, save_path: str, name_prefix: Optional[str] = None, verbose: int = 2):
         super().__init__(verbose)
         self.save_freq = save_freq
         self.save_path = save_path
@@ -112,7 +112,7 @@ class ParallelTrainCallback(BaseCallback):
     :param sleep_time: Limit the fps in the thread collecting experience.
     """
 
-    def __init__(self, gradient_steps: int = 100, verbose: int = 0, sleep_time: float = 0.0):
+    def __init__(self, gradient_steps: int = 100, verbose: int = 2, sleep_time: float = 0.0):
         super().__init__(verbose)
         self.batch_size = 0
         self._model_ready = True

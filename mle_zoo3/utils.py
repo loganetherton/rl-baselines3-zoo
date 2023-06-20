@@ -439,7 +439,7 @@ class StoreDict(argparse.Action):
     """
     Custom argparse action for storing dict.
 
-    In: args1:0.0 args2:"dict(a=1)"
+        In: args1:0.0 args2:"dict(a=1)"
     Out: {'args1': 0.0, arg2: dict(a=1)}
     """
 
@@ -449,6 +449,8 @@ class StoreDict(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         arg_dict = {}
+        if len(values) == 1:
+            values = values[0].split(' ')
         for arguments in values:
             key = arguments.split(":")[0]
             value = ":".join(arguments.split(":")[1:])
