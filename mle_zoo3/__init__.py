@@ -3,11 +3,11 @@ import os
 # Important: import gym patches before everything
 # isort: off
 
-import rl_zoo3.gym_patches  # noqa: F401
+import mle_zoo3.gym_patches  # noqa: F401
 
 # isort: on
 
-from rl_zoo3.utils import (
+from mle_zoo3.utils import (
     ALGOS,
     create_test_env,
     get_latest_run_id,

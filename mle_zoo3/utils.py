@@ -57,8 +57,8 @@ def get_wrapper_class(hyperparams: Dict[str, Any], key: str = "env_wrapper") -> 
     for multiple, specify a list:
 
     env_wrapper:
-        - rl_zoo3.wrappers.PlotActionWrapper
-        - rl_zoo3.wrappers.TimeFeatureWrapper
+        - mle_zoo3.wrappers.PlotActionWrapper
+        - mle_zoo3.wrappers.TimeFeatureWrapper
 
 
     :param hyperparams:
@@ -148,7 +148,7 @@ def get_callback_list(hyperparams: Dict[str, Any]) -> List[BaseCallback]:
     for multiple, specify a list:
 
     callback:
-        - rl_zoo3.callbacks.PlotActionWrapper
+        - mle_zoo3.callbacks.PlotActionWrapper
         - stable_baselines3.common.callbacks.CheckpointCallback
 
     :param hyperparams:
@@ -213,7 +213,7 @@ def create_test_env(
     :return:
     """
     # Avoid circular import
-    from rl_zoo3.exp_manager import ExperimentManager
+    from mle_zoo3.exp_manager import ExperimentManager
 
     # Create the environment and wrap it if necessary
     assert hyperparams is not None

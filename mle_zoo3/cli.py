@@ -1,8 +1,8 @@
 import sys
 
-from rl_zoo3.enjoy import enjoy
-from rl_zoo3.plots import all_plots, plot_from_file, plot_train
-from rl_zoo3.train import train
+from mle_zoo3.enjoy import enjoy
+from mle_zoo3.plots import all_plots, plot_from_file, plot_train
+from mle_zoo3.train import train
 
 
 def main():

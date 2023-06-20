@@ -11,8 +11,8 @@ import pytablewriter
 from huggingface_sb3 import EnvironmentName
 from stable_baselines3.common.results_plotter import load_results, ts2xy
 
-from rl_zoo3.load_from_hub import download_from_hub
-from rl_zoo3.utils import get_hf_trained_models, get_latest_run_id, get_saved_hyperparams, get_trained_models
+from mle_zoo3.load_from_hub import download_from_hub
+from mle_zoo3.utils import get_hf_trained_models, get_latest_run_id, get_saved_hyperparams, get_trained_models
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--log-dir", help="Root log folder", default="rl-trained-agents/", type=str)
@@ -171,7 +171,7 @@ header = """
 ## Performance of trained agents
 
 Final performance of the trained agents can be found in the table below.
-This was computed by running `python -m rl_zoo3.benchmark`:
+This was computed by running `python -m mle_zoo3.benchmark`:
 it runs the trained agent (trained on `n_timesteps`) for `eval_timesteps` and then reports the mean episode reward
 during this evaluation.
 

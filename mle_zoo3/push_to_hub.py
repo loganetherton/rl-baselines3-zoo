@@ -19,10 +19,10 @@ from stable_baselines3.common.utils import set_random_seed
 from stable_baselines3.common.vec_env import VecEnv, unwrap_vec_normalize
 from wasabi import Printer
 
-import rl_zoo3.import_envs  # noqa: F401 pylint: disable=unused-import
-from rl_zoo3 import ALGOS, create_test_env, get_saved_hyperparams
-from rl_zoo3.exp_manager import ExperimentManager
-from rl_zoo3.utils import StoreDict, get_model_path
+import mle_zoo3.import_envs  # noqa: F401 pylint: disable=unused-import
+from mle_zoo3 import ALGOS, create_test_env, get_saved_hyperparams
+from mle_zoo3.exp_manager import ExperimentManager
+from mle_zoo3.utils import StoreDict, get_model_path
 
 msg = Printer()
 
@@ -70,7 +70,7 @@ def generate_model_card(
 # **{algo_class_name}** Agent playing **{env_id}**
 This is a trained model of a **{algo_class_name}** agent playing **{env_id}**
 using the [stable-baselines3 library](https://github.com/DLR-RM/stable-baselines3)
-and the [RL Zoo](https://github.com/DLR-RM/rl-baselines3-zoo).
+and the [RL Zoo](https://github.com/loganetherton/rl-baselines3-zoo).
 
 The RL Zoo is a training framework for Stable Baselines3
 reinforcement learning agents,
@@ -80,32 +80,32 @@ with hyperparameter optimization and pre-trained agents included.
     model_card += f"""
 ## Usage (with SB3 RL Zoo)
 
-RL Zoo: https://github.com/DLR-RM/rl-baselines3-zoo<br/>
+RL Zoo: https://github.com/loganetherton/rl-baselines3-zoo<br/>
 SB3: https://github.com/DLR-RM/stable-baselines3<br/>
 SB3 Contrib: https://github.com/Stable-Baselines-Team/stable-baselines3-contrib
 
 Install the RL Zoo (with SB3 and SB3-Contrib):
 ```bash
-pip install rl_zoo3
+pip install mle_zoo3
 ```
 
 ```
 # Download model and save it into the logs/ folder
-python -m rl_zoo3.load_from_hub --algo {algo_name} --env {env_id} -orga {organization} -f logs/
-python -m rl_zoo3.enjoy --algo {algo_name} --env {env_id}  -f logs/
+python -m mle_zoo3.load_from_hub --algo {algo_name} --env {env_id} -orga {organization} -f logs/
+python -m mle_zoo3.enjoy --algo {algo_name} --env {env_id}  -f logs/
 ```
 
-If you installed the RL Zoo3 via pip (`pip install rl_zoo3`), from anywhere you can do:
+If you installed the RL Zoo3 via pip (`pip install mle_zoo3`), from anywhere you can do:
 ```
-python -m rl_zoo3.load_from_hub --algo {algo_name} --env {env_id} -orga {organization} -f logs/
-python -m rl_zoo3.enjoy --algo {algo_name} --env {env_id}  -f logs/
+python -m mle_zoo3.load_from_hub --algo {algo_name} --env {env_id} -orga {organization} -f logs/
+python -m mle_zoo3.enjoy --algo {algo_name} --env {env_id}  -f logs/
 ```
 
 ## Training (with the RL Zoo)
 ```
-python -m rl_zoo3.train --algo {algo_name} --env {env_id} -f logs/
+python -m mle_zoo3.train --algo {algo_name} --env {env_id} -f logs/
 # Upload the model and generate video (when possible)
-python -m rl_zoo3.push_to_hub --algo {algo_name} --env {env_id} -f logs/ -orga {organization}
+python -m mle_zoo3.push_to_hub --algo {algo_name} --env {env_id} -f logs/ -orga {organization}
 ```
 
 ## Hyperparameters

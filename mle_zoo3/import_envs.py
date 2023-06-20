@@ -3,7 +3,7 @@ from typing import Optional
 import gymnasium as gym
 from gymnasium.envs.registration import register
 
-from rl_zoo3.wrappers import MaskVelocityWrapper
+from mle_zoo3.wrappers import MaskVelocityWrapper
 
 try:
     import pybullet_envs  # pytype: disable=import-error
