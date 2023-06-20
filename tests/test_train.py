@@ -98,7 +98,7 @@ def test_parallel_train(tmp_path):
         "-params",
         # Test custom argument for the monitor too
         "monitor_kwargs:'dict(info_keywords=(\"TimeLimit.truncated\",))'",
-        "callback:'rl_zoo3.callbacks.ParallelTrainCallback'",
+        "callback:'mle_zoo3.callbacks.ParallelTrainCallback'",
     ]
 
     return_code = subprocess.call(["python", "train.py", *args])

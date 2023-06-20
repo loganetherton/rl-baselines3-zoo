@@ -7,7 +7,7 @@ Enjoy a Trained Agent
 .. note::
 
   To download the repo with the trained agents, you must use
-  ``git clone --recursive https://github.com/DLR-RM/rl-baselines3-zoo``
+  ``git clone --recursive https://github.com/loganetherton/rl-baselines3-zoo``
   in order to clone the submodule too.
 
 
@@ -63,20 +63,20 @@ Record 1000 steps with the latest saved model:
 
 ::
 
-  python -m rl_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000
+  python -m mle_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000
 
 Use the best saved model instead:
 
 ::
 
-  python -m rl_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000 --load-best
+  python -m mle_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000 --load-best
 
 Record a video of a checkpoint saved during training (here the
 checkpoint name is ``rl_model_10000_steps.zip``):
 
 ::
 
-  python -m rl_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000 --load-checkpoint 10000
+  python -m mle_zoo3.record_video --algo ppo --env BipedalWalkerHardcore-v3 -n 1000 --load-checkpoint 10000
 
 
 Record a Video of a Training Experiment
@@ -90,11 +90,11 @@ Record 1000 steps for each checkpoint, latest and best saved models:
 
 ::
 
-  python -m rl_zoo3.record_training --algo ppo --env CartPole-v1 -n 1000 -f logs --deterministic
+  python -m mle_zoo3.record_training --algo ppo --env CartPole-v1 -n 1000 -f logs --deterministic
 
 The previous command will create a ``mp4`` file. To convert this file to
 ``gif`` format as well:
 
 ::
 
-  python -m rl_zoo3.record_training --algo ppo --env CartPole-v1 -n 1000 -f logs --deterministic --gif
+  python -m mle_zoo3.record_training --algo ppo --env CartPole-v1 -n 1000 -f logs --deterministic --gif

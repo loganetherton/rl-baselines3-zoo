@@ -19,5 +19,5 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I have checked that there is no similar [issue](https://github.com/DLR-RM/rl-baselines3-zoo/issues) in the repo
+        - label: I have checked that there is no similar [issue](https://github.com/loganetherton/rl-baselines3-zoo/issues) in the repo
           required: true

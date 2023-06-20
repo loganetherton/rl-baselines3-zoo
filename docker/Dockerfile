@@ -18,7 +18,7 @@ COPY requirements.txt /tmp/
 
 
 RUN \
-    mkdir -p ${CODE_DIR}/rl_zoo3 && \
+    mkdir -p ${CODE_DIR}/mle_zoo3 && \
     pip uninstall -y stable-baselines3 && \
     pip install -r /tmp/requirements.txt && \
     pip install highway-env>=1.7.1 && \

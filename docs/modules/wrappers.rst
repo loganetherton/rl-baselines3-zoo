@@ -4,5 +4,5 @@
 Wrappers
 ========
 
-.. automodule:: rl_zoo3.wrappers
+.. automodule:: mle_zoo3.wrappers
   :members:

@@ -14,7 +14,7 @@ Upload model to hub (same syntax as for ``enjoy.py``):
 
 ::
 
-   python -m rl_zoo3.push_to_hub --algo ppo --env CartPole-v1 -f logs/ -orga sb3 -m "Initial commit"
+   python -m mle_zoo3.push_to_hub --algo ppo --env CartPole-v1 -f logs/ -orga sb3 -m "Initial commit"
 
 you can choose custom ``repo-name`` (default: ``{algo}-{env_id}``) by
 passing a ``--repo-name`` argument.
@@ -23,7 +23,7 @@ Download model from hub:
 
 ::
 
-   python -m rl_zoo3.load_from_hub --algo ppo --env CartPole-v1 -f logs/ -orga sb3
+   python -m mle_zoo3.load_from_hub --algo ppo --env CartPole-v1 -f logs/ -orga sb3
 
 
 Experiment tracking

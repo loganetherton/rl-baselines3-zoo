@@ -16,19 +16,19 @@ For that you will need to create two files.
 
 .. code-block:: python
 
-  import rl_zoo3
-  import rl_zoo3.train
-  from rl_zoo3.train import train
+  import mle_zoo3
+  import mle_zoo3.train
+  from mle_zoo3.train import train
   from sbx import DQN, PPO, SAC, TQC, DroQ
 
 
-  rl_zoo3.ALGOS["tqc"] = TQC
-  rl_zoo3.ALGOS["droq"] = DroQ
-  rl_zoo3.ALGOS["sac"] = SAC
-  rl_zoo3.ALGOS["ppo"] = PPO
-  rl_zoo3.ALGOS["dqn"] = DQN
-  rl_zoo3.train.ALGOS = rl_zoo3.ALGOS
-  rl_zoo3.exp_manager.ALGOS = rl_zoo3.ALGOS
+  mle_zoo3.ALGOS["tqc"] = TQC
+  mle_zoo3.ALGOS["droq"] = DroQ
+  mle_zoo3.ALGOS["sac"] = SAC
+  mle_zoo3.ALGOS["ppo"] = PPO
+  mle_zoo3.ALGOS["dqn"] = DQN
+  mle_zoo3.train.ALGOS = mle_zoo3.ALGOS
+  mle_zoo3.exp_manager.ALGOS = mle_zoo3.ALGOS
 
   if __name__ == "__main__":
       train()
@@ -40,19 +40,19 @@ Then you can call ``python train_sbx.py --algo sac --env Pendulum-v1`` and use t
 
 .. code-block:: python
 
-  import rl_zoo3
-  import rl_zoo3.enjoy
-  from rl_zoo3.enjoy import enjoy
+  import mle_zoo3
+  import mle_zoo3.enjoy
+  from mle_zoo3.enjoy import enjoy
   from sbx import DQN, PPO, SAC, TQC, DroQ
 
 
-  rl_zoo3.ALGOS["tqc"] = TQC
-  rl_zoo3.ALGOS["droq"] = DroQ
-  rl_zoo3.ALGOS["sac"] = SAC
-  rl_zoo3.ALGOS["ppo"] = PPO
-  rl_zoo3.ALGOS["dqn"] = DQN
-  rl_zoo3.enjoy.ALGOS = rl_zoo3.ALGOS
-  rl_zoo3.exp_manager.ALGOS = rl_zoo3.ALGOS
+  mle_zoo3.ALGOS["tqc"] = TQC
+  mle_zoo3.ALGOS["droq"] = DroQ
+  mle_zoo3.ALGOS["sac"] = SAC
+  mle_zoo3.ALGOS["ppo"] = PPO
+  mle_zoo3.ALGOS["dqn"] = DQN
+  mle_zoo3.enjoy.ALGOS = mle_zoo3.ALGOS
+  mle_zoo3.exp_manager.ALGOS = mle_zoo3.ALGOS
 
   if __name__ == "__main__":
       enjoy()

@@ -4,7 +4,7 @@ import sys
 
 import pytest
 
-from rl_zoo3.utils import get_hf_trained_models, get_trained_models
+from mle_zoo3.utils import get_hf_trained_models, get_trained_models
 
 
 def _assert_eq(left, right):
@@ -44,7 +44,7 @@ def test_trained_agents(trained_model):
 
     # FIXME: switch to MiniGrid package
     if "-MiniGrid-" in trained_model:
-        # Skip for python 3.7, see https://github.com/DLR-RM/rl-baselines3-zoo/pull/372#issuecomment-1490562332
+        # Skip for python 3.7, see https://github.com/loganetherton/rl-baselines3-zoo/pull/372#issuecomment-1490562332
         if sys.version_info[:2] == (3, 7):
             pytest.skip("MiniGrid env does not work with Python 3.7")
         # FIXME: switch to Gymnsium
@@ -57,7 +57,7 @@ def test_trained_agents(trained_model):
 def test_benchmark(tmp_path):
     args = ["-n", str(N_STEPS), "--benchmark-dir", tmp_path, "--test-mode", "--no-hub"]
 
-    return_code = subprocess.call(["python", "-m", "rl_zoo3.benchmark", *args])
+    return_code = subprocess.call(["python", "-m", "mle_zoo3.benchmark", *args])
     _assert_eq(return_code, 0)
 
 
@@ -106,7 +106,7 @@ def test_record_video(tmp_path):
     if not os.environ.get("DISPLAY"):
         pytest.skip("No X-Server")
 
-    return_code = subprocess.call(["python", "-m", "rl_zoo3.record_video", *args])
+    return_code = subprocess.call(["python", "-m", "mle_zoo3.record_video", *args])
     _assert_eq(return_code, 0)
     video_path = str(tmp_path / "final-model-sac-Pendulum-v1-step-0-to-step-100.mp4")
     # File is not empty
@@ -148,7 +148,7 @@ def test_record_training(tmp_path):
     return_code = subprocess.call(["python", "train.py", *args_training])
     _assert_eq(return_code, 0)
 
-    return_code = subprocess.call(["python", "-m", "rl_zoo3.record_training", *args_recording])
+    return_code = subprocess.call(["python", "-m", "mle_zoo3.record_training", *args_recording])
     _assert_eq(return_code, 0)
     mp4_path = str(videos_tmp_path / "training.mp4")
     gif_path = str(videos_tmp_path / "training.gif")

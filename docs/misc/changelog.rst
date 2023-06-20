@@ -4,4 +4,4 @@ Changelog
 ==========
 
 
-See https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/CHANGELOG.md
+See https://github.com/loganetherton/rl-baselines3-zoo/blob/master/CHANGELOG.md

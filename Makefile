@@ -1,4 +1,4 @@
-LINT_PATHS = *.py tests/ scripts/ rl_zoo3/ hyperparams/python/*.py
+LINT_PATHS = *.py tests/ scripts/ mle_zoo3/ hyperparams/python/*.py
 
 # Run pytest and coverage report
 pytest:

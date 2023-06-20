@@ -3,29 +3,30 @@ import shutil
 
 from setuptools import setup
 
-with open(os.path.join("rl_zoo3", "version.txt")) as file_handler:
+with open(os.path.join("mle_zoo3", "version.txt")) as file_handler:
     __version__ = file_handler.read().strip()
 
 # Copy hyperparams files for packaging
-shutil.copytree("hyperparams", os.path.join("rl_zoo3", "hyperparams"))
+shutil.copytree("hyperparams", os.path.join("mle_zoo3", "hyperparams"))
 
 long_description = """
 # RL Baselines3 Zoo: A Training Framework for Stable Baselines3 Reinforcement Learning Agents
+With modifications by MLE
 
-See https://github.com/DLR-RM/rl-baselines3-zoo
+See https://github.com/loganetherton/rl-baselines3-zoo
 """
 
 setup(
-    name="rl_zoo3",
-    packages=["rl_zoo3", "rl_zoo3.plots"],
+    name="mle_zoo3",
+    packages=["mle_zoo3", "mle_zoo3.plots"],
     package_data={
-        "rl_zoo3": [
+        "mle_zoo3": [
             "py.typed",
             "version.txt",
             "hyperparams/*.yml",
         ]
     },
-    entry_points={"console_scripts": ["rl_zoo3=rl_zoo3.cli:main"]},
+    entry_points={"console_scripts": ["mle_zoo3=mle_zoo3.cli:main"]},
     install_requires=[
         "sb3_contrib>=2.0.0a9",
         "gym==0.26.2",
@@ -42,7 +43,7 @@ setup(
     },
     description="A Training Framework for Stable Baselines3 Reinforcement Learning Agents",
     author="Antonin Raffin",
-    url="https://github.com/DLR-RM/rl-baselines3-zoo",
+    url="https://github.com/loganetherton/rl-baselines3-zoo",
     author_email="antonin.raffin@dlr.de",
     keywords="reinforcement-learning-algorithms reinforcement-learning machine-learning "
     "gym gymnasium openai stable baselines sb3 toolbox python data-science",
@@ -62,7 +63,7 @@ setup(
 )
 
 # Remove copied files after packaging
-shutil.rmtree(os.path.join("rl_zoo3", "hyperparams"))
+shutil.rmtree(os.path.join("mle_zoo3", "hyperparams"))
 
 
 # python setup.py sdist

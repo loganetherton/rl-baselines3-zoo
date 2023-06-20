@@ -64,7 +64,7 @@
 - Added a sb3 version tag to the wandb run
 
 ### Bug fixes
-- Allow `python -m rl_zoo3.cli` to be called directly
+- Allow `python -m mle_zoo3.cli` to be called directly
 - Fixed a bug where custom environments were not found despite passing ``--gym-package`` when using subprocesses
 - Fixed TRPO hyperparameters for MinitaurBulletEnv-v0, MinitaurBulletDuckEnv-v0, HumanoidBulletEnv-v0, InvertedDoublePendulumBulletEnv-v0 and InvertedPendulumSwingupBulletEnv
 
@@ -83,7 +83,7 @@
 ### New Features
 
 ### Bug fixes
-- `python3 -m rl_zoo3.train` now works as expected
+- `python3 -m mle_zoo3.train` now works as expected
 
 ### Documentation
 - Added instructions and examples on passing arguments in an interactive session (@richter43)
@@ -102,7 +102,7 @@
 - Use now built-in SB3 `ProgressBarCallback` instead of `TQDMCallback`
 
 ### New Features
-- RL Zoo cli: `rl_zoo3 train` and `rl_zoo3 enjoy`
+- RL Zoo cli: `mle_zoo3 train` and `mle_zoo3 enjoy`
 
 ### Bug fixes
 
@@ -181,7 +181,7 @@
 ### New Features
 - Verbose mode for each trial (when doing hyperparam optimization) can now be activated using the debug mode (verbose == 2)
 - Support experiment tracking via Weights and Biases via the `--track` flag (@vwxyzjn)
-- Support tracking raw episodic stats via `RawStatisticsCallback` (@vwxyzjn, see https://github.com/DLR-RM/rl-baselines3-zoo/pull/216)
+- Support tracking raw episodic stats via `RawStatisticsCallback` (@vwxyzjn, see https://github.com/loganetherton/rl-baselines3-zoo/pull/216)
 
 ### Bug fixes
 - Policies saved during during optimization with distributed Optuna load on new systems (@jkterry)

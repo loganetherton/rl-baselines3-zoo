@@ -4,5 +4,5 @@
 Callbacks
 =========
 
-.. automodule:: rl_zoo3.callbacks
+.. automodule:: mle_zoo3.callbacks
   :members:

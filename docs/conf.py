@@ -53,7 +53,7 @@ MOCK_MODULES: List[str] = []
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # Read version from file
-version_file = os.path.join(os.path.dirname(__file__), "../rl_zoo3", "version.txt")
+version_file = os.path.join(os.path.dirname(__file__), "../mle_zoo3", "version.txt")
 with open(version_file) as file_handler:
     __version__ = file_handler.read().strip()
 
@@ -199,7 +199,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "rl_zoo3", "RL Baselines3 Zoo Documentation", [author], 1)]
+man_pages = [(master_doc, "mle_zoo3", "RL Baselines3 Zoo Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------

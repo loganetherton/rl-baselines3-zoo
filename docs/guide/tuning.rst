@@ -11,11 +11,11 @@ We use `Optuna <https://optuna.org/>`__ for optimizing the
 hyperparameters. Not all hyperparameters are tuned, and tuning enforces
 certain default hyperparameter settings that may be different from the
 official defaults. See
-`rl_zoo3/hyperparams_opt.py <https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/rl_zoo3/hyperparams_opt.py>`__
+`mle_zoo3/hyperparams_opt.py <https://github.com/loganetherton/rl-baselines3-zoo/blob/master/mle_zoo3/hyperparams_opt.py>`__
 for the current settings for each agent.
 
 Hyperparameters not specified in
-`rl_zoo3/hyperparams_opt.py <https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/rl_zoo3/hyperparams_opt.py>`__
+`mle_zoo3/hyperparams_opt.py <https://github.com/loganetherton/rl-baselines3-zoo/blob/master/mle_zoo3/hyperparams_opt.py>`__
 are taken from the associated YAML file and fallback to the default
 values of SB3 if not present.
 
@@ -60,7 +60,7 @@ example:
    when tuning, though it is ``True`` by
    `default <https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html#ppo-policies>`__.
    You can change that by updating
-   `rl_zoo3/hyperparams_opt.py <https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/rl_zoo3/hyperparams_opt.py>`__.
+   `mle_zoo3/hyperparams_opt.py <https://github.com/loganetherton/rl-baselines3-zoo/blob/master/mle_zoo3/hyperparams_opt.py>`__.
 
 -  Non-episodic rollout in TD3 and DDPG assumes
    ``gradient_steps = train_freq`` and so tunes only ``train_freq`` to
@@ -68,4 +68,4 @@ example:
 
 When working with continuous actions, we recommend to enable
 `gSDE <https://arxiv.org/abs/2005.05719>`__ by uncommenting lines in
-`rl_zoo3/hyperparams_opt.py <https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/rl_zoo3/hyperparams_opt.py>`__.
+`mle_zoo3/hyperparams_opt.py <https://github.com/loganetherton/rl-baselines3-zoo/blob/master/mle_zoo3/hyperparams_opt.py>`__.

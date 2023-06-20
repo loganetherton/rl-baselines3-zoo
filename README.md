@@ -1,5 +1,5 @@
 <!-- [![pipeline status](https://gitlab.com/araffin/rl-baselines3-zoo/badges/master/pipeline.svg)](https://gitlab.com/araffin/rl-baselines3-zoo/-/commits/master) -->
-![CI](https://github.com/DLR-RM/rl-baselines3-zoo/workflows/CI/badge.svg)
+![CI](https://github.com/loganetherton/rl-baselines3-zoo/workflows/CI/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/rl-baselines3-zoo/badge/?version=master)](https://rl-baselines3-zoo.readthedocs.io/en/master/?badge=master)
 [![coverage report](https://gitlab.com/araffin/rl-baselines3-zoo/badges/master/coverage.svg)](https://gitlab.com/araffin/rl-baselines3-zoo/-/commits/master) [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -42,10 +42,10 @@ pip install -e .
 
 As a python package:
 ```
-pip install rl_zoo3
+pip install mle_zoo3
 ```
 
-Note: you can do `python -m rl_zoo3.train` from any folder and you have access to `rl_zoo3` command line interface, for instance, `rl_zoo3 train` is equivalent to `python train.py`
+Note: you can do `python -m mle_zoo3.train` from any folder and you have access to `mle_zoo3` command line interface, for instance, `mle_zoo3 train` is equivalent to `python train.py`
 
 ### Full installation (with extra envs and test dependencies)
 
@@ -83,7 +83,7 @@ Please the see [dedicated section](https://rl-baselines3-zoo.readthedocs.io/en/m
 
 ## Enjoy a Trained Agent
 
-**Note: to download the repo with the trained agents, you must use `git clone --recursive https://github.com/DLR-RM/rl-baselines3-zoo`** in order to clone the submodule too.
+**Note: to download the repo with the trained agents, you must use `git clone --recursive https://github.com/loganetherton/rl-baselines3-zoo`** in order to clone the submodule too.
 
 
 If the trained agent exists, then you can see it in action using:
@@ -106,7 +106,7 @@ Please the see [dedicated section](https://rl-baselines3-zoo.readthedocs.io/en/m
 
 ## Current Collection: 200+ Trained Agents!
 
-Final performance of the trained agents can be found in [`benchmark.md`](./benchmark.md). To compute them, simply run `python -m rl_zoo3.benchmark`.
+Final performance of the trained agents can be found in [`benchmark.md`](./benchmark.md). To compute them, simply run `python -m mle_zoo3.benchmark`.
 
 List and videos of trained agents can be found on our Huggingface page: https://huggingface.co/sb3
 
@@ -208,7 +208,7 @@ PyBullet Envs (Continued)
 
 ### Robotics Environments
 
-See https://gym.openai.com/envs/#robotics and https://github.com/DLR-RM/rl-baselines3-zoo/pull/71
+See https://gym.openai.com/envs/#robotics and https://github.com/loganetherton/rl-baselines3-zoo/pull/71
 
 MuJoCo version: 1.50.1.0
 Gym version: 0.18.0
@@ -260,7 +260,7 @@ The zoo is not meant to be executed from an interactive session (e.g: Jupyter No
 *Example*
 ```python
 import sys
-from rl_zoo3.train import train
+from mle_zoo3.train import train
 
 sys.argv = ["python", "--algo", "ppo", "--env", "MountainCar-v0"]
 
@@ -292,7 +292,7 @@ To cite this repository in publications:
   year = {2020},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/DLR-RM/rl-baselines3-zoo}},
+  howpublished = {\url{https://github.com/loganetherton/rl-baselines3-zoo}},
 }
 ```
 

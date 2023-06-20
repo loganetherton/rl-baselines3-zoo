@@ -9,7 +9,7 @@ Hyperparameter yaml syntax
 
 The syntax used in ``hyperparameters/algo_name.yml`` for setting
 hyperparameters (likewise the syntax to `overwrite
-hyperparameters <https://github.com/DLR-RM/rl-baselines3-zoo#overwrite-hyperparameters>`__
+hyperparameters <https://github.com/loganetherton/rl-baselines3-zoo#overwrite-hyperparameters>`__
 on the cli) may be specialized if the argument is a function. See
 examples in the ``hyperparameters/`` directory. For example:
 
@@ -40,10 +40,10 @@ environment will be wrapped in a
 wrapper.
 
 `Normalization
-uses <https://github.com/DLR-RM/rl-baselines3-zoo/issues/64>`__ the
+uses <https://github.com/loganetherton/rl-baselines3-zoo/issues/64>`__ the
 default parameters of ``VecNormalize``, with the exception of ``gamma``
 which is set to match that of the agent. This can be
-`overridden <https://github.com/DLR-RM/rl-baselines3-zoo/blob/v0.10.0/hyperparams/sac.yml#L239>`__
+`overridden <https://github.com/loganetherton/rl-baselines3-zoo/blob/v0.10.0/hyperparams/sac.yml#L239>`__
 using the appropriate ``hyperparameters/algo_name.yml``, e.g.
 
 .. code:: yaml
@@ -67,7 +67,7 @@ for multiple, specify a list:
 .. code:: yaml
 
   env_wrapper:
-      - rl_zoo3.wrappers.TruncatedOnSuccessWrapper:
+      - mle_zoo3.wrappers.TruncatedOnSuccessWrapper:
           reward_offset: 1.0
       - sb3_contrib.common.wrappers.TimeFeatureWrapper
 
@@ -118,5 +118,5 @@ callbacks to use during training.
 .. code:: yaml
 
   callback:
-    - rl_zoo3.callbacks.ParallelTrainCallback:
+    - mle_zoo3.callbacks.ParallelTrainCallback:
         gradient_steps: 256

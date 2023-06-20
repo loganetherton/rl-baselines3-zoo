@@ -13,7 +13,7 @@ The hyperparameters for each environment are defined in
 
 .. note::
 
-	Once RL Zoo3 is install, you can do ``python -m rl_zoo3.train`` from any folder, it is equivalent to ``python train.py``
+	Once RL Zoo3 is install, you can do ``python -m mle_zoo3.train`` from any folder, it is equivalent to ``python train.py``
 
 
 If the environment exists in this file, then you can train an agent using:

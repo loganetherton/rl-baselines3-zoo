@@ -4,5 +4,5 @@
 Utils
 =====
 
-.. automodule:: rl_zoo3.utils
+.. automodule:: mle_zoo3.utils
   :members:

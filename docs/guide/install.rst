@@ -16,19 +16,19 @@ To install RL Zoo with pip, execute:
 
 .. code-block:: bash
 
-    pip install rl_zoo3
+    pip install mle_zoo3
 
 From source:
 
 .. code-block:: bash
 
-	git clone https://github.com/DLR-RM/rl-baselines3-zoo
+	git clone https://github.com/loganetherton/rl-baselines3-zoo
 	cd rl-baselines3-zoo/
 	pip install -e .
 
 .. note::
 
-	You can do ``python -m rl_zoo3.train`` from any folder and you have access to ``rl_zoo3`` command line interface, for instance, ``rl_zoo3 train`` is equivalent to ``python train.py``
+	You can do ``python -m mle_zoo3.train`` from any folder and you have access to ``mle_zoo3`` command line interface, for instance, ``mle_zoo3 train`` is equivalent to ``python train.py``
 
 
 
