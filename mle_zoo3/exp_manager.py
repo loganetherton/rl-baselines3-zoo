@@ -301,9 +301,9 @@ class ExperimentManager:
             # raise ValueError(f"Unsupported config file format: {self.config}")
 
         if self.env_name.gym_id in list(hyperparams_dict.keys()):
-            hyperparams = hyperparams_dict[self.env_name.gym_id]
+            hyperparams: dict = hyperparams_dict[self.env_name.gym_id]
         elif self._is_atari:
-            hyperparams = hyperparams_dict["atari"]
+            hyperparams: dict = hyperparams_dict["atari"]
         else:
             raise ValueError(f"Hyperparameters not found for {self.algo}-{self.env_name.gym_id} in {self.config}")
 
@@ -482,6 +482,8 @@ class ExperimentManager:
         if self.save_freq > 0:
             # Account for the number of parallel environments
             self.save_freq = max(self.save_freq // self.n_envs, 1)
+            print('***********SAVE FREQUENCY*************')
+            print(self.save_freq)
             self.callbacks.append(
                 CheckpointCallback(
                     save_freq=self.save_freq,
@@ -495,6 +497,9 @@ class ExperimentManager:
         if self.eval_freq > 0 and not self.optimize_hyperparameters:
             # Account for the number of parallel environments
             self.eval_freq = max(self.eval_freq // self.n_envs, 1)
+            print('***********EVAL FREQUENCY*************')
+            print(f'Frequency: {self.eval_freq}, eval episodes: {self.n_eval_episodes}, '
+                  f'deterministic: {self.deterministic_eval}')
 
             if self.verbose > 0:
                 print("Creating test environment")
@@ -618,13 +623,16 @@ class ExperimentManager:
             env = spec.make(**kwargs)
             return env
 
+        env_kwargs = self.env_kwargs.copy()
+        env_kwargs['is_eval'] = eval_env
+
         # On most env, SubprocVecEnv does not help and is quite memory hungry
         # therefore we use DummyVecEnv by default
         env = make_vec_env(
             make_env,
             n_envs=n_envs,
             seed=self.seed,
-            env_kwargs=self.env_kwargs,
+            env_kwargs=env_kwargs,
             monitor_dir=log_dir,
             wrapper_class=self.env_wrapper,
             vec_env_cls=self.vec_env_class,
@@ -741,16 +749,21 @@ class ExperimentManager:
 
         # My addition
         env_params = {
-            "lookback": trial.suggest_categorical("lookback", [5, 10, 15]),
-            "norm_cash": trial.suggest_categorical("norm_cash", [2 ** -12, 2 ** -13, 2 ** -14]),
+            # "lookback": trial.suggest_categorical("lookback", [5, 10, 15]),
+            "lookback": trial.suggest_int("lookback", 5, 15, step=5),
+            # "norm_cash": trial.suggest_categorical("norm_cash", [2 ** -12, 2 ** -13, 2 ** -14]),
+            "norm_cash": trial.suggest_float("norm_cash", 2 ** -14, 2 ** -12, log=True),
             # Could be bigger, since 2 ** -7 is always the best. Adding 2 ** -6
-            "norm_stocks": trial.suggest_categorical("norm_stocks", [2 ** -8, 2 ** -7]),
+            # "norm_stocks": trial.suggest_categorical("norm_stocks", [2 ** -8, 2 ** -7]),
+            "norm_stocks": trial.suggest_float("norm_stocks", 2 ** -8, 2 ** -7, log=True),
             # "norm_tech": trial.suggest_categorical("norm_tech", [2 ** -16, 2 ** -15, 2 ** -14]),
             # "norm_tech": trial.suggest_categorical("norm_tech", [1e-3]),
-            'norm_tech': 1e-3,
+            # 'norm_tech': 1e-3,
             # Could be smaller, since 2 ** -11 is by far the best, adding 2 ** -12
-            "norm_reward": trial.suggest_categorical("norm_reward", [2 ** -12, 2 ** -11]),
-            "norm_action": trial.suggest_categorical("norm_action", [11_000, 11_500, 12_000])
+            # "norm_reward": trial.suggest_categorical("norm_reward", [2 ** -12, 2 ** -11]),
+            # "norm_reward": trial.suggest_float("norm_reward", 2 ** -13, 2 ** -10, log=True),
+            # "norm_action": trial.suggest_categorical("norm_action", [11_000, 11_500, 12_000])
+            # "norm_action": trial.suggest_int("norm_action", 11_000, 13_000, step=500)
         }
         self.env_kwargs.update(env_params)
 
