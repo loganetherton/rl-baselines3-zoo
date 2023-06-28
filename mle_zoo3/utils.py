@@ -449,14 +449,17 @@ class StoreDict(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         arg_dict = {}
+        # Passing in a string of values
         if len(values) == 1:
-            values = values[0].split(' ')
-        for arguments in values:
-            key = arguments.split(":")[0]
-            value = ":".join(arguments.split(":")[1:])
-            # Evaluate the string as python code
-            arg_dict[key] = eval(value)
-        setattr(namespace, self.dest, arg_dict)
+            arg_dict = {v[0]: eval(v[1]) for v in [_v.split(':') for _v in values[0].split(' ')]}
+            setattr(namespace, self.dest, arg_dict)
+        else:
+            for arguments in values:
+                key = arguments.split(":")[0]
+                value = ":".join(arguments.split(":")[1:])
+                # Evaluate the string as python code
+                arg_dict[key] = eval(value)
+            setattr(namespace, self.dest, arg_dict)
 
 
 def get_model_path(
