@@ -8,7 +8,7 @@ from torch import nn as nn
 from mle_zoo3 import linear_schedule
 
 
-def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
+def sample_ppo_params_original(trial: optuna.Trial) -> Dict[str, Any]:
     """
     Sampler for PPO hyperparams.
 
@@ -51,6 +51,241 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": dict(pi=[64, 64], vf=[64, 64]),
         "medium": dict(pi=[256, 256], vf=[256, 256]),
+    }[net_arch]
+
+    activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
+
+    return {
+        "n_steps": n_steps,
+        "batch_size": batch_size,
+        "gamma": gamma,
+        "learning_rate": learning_rate,
+        "ent_coef": ent_coef,
+        "clip_range": clip_range,
+        "n_epochs": n_epochs,
+        "gae_lambda": gae_lambda,
+        "max_grad_norm": max_grad_norm,
+        "vf_coef": vf_coef,
+        # "sde_sample_freq": sde_sample_freq,
+        "policy_kwargs": dict(
+            # log_std_init=log_std_init,
+            net_arch=net_arch,
+            activation_fn=activation_fn,
+            ortho_init=ortho_init,
+        ),
+    }
+#
+#
+# def sample_ppo_params_trial_7(trial: optuna.Trial) -> Dict[str, Any]:
+#     """
+#     Sampler for PPO hyperparams.
+#
+#     :param trial:
+#     :return:
+#     """
+#     # batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512])
+#     batch_size = trial.suggest_categorical("batch_size", [16, 32, 64, 128])
+#     # n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
+#     n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 128, 512, 1024])
+#     # gamma = trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999])
+#     gamma = trial.suggest_categorical("gamma", [0.99, 0.995, 0.999, 0.9999])
+#     learning_rate = trial.suggest_float("learning_rate", 1e-5, 1, log=True)
+#     lr_schedule = "constant"
+#     # Uncomment to enable learning rate schedule
+#     # lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
+#     ent_coef = trial.suggest_float("ent_coef", 0.00000001, 0.1, log=True)
+#     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
+#     # n_epochs = trial.suggest_categorical("n_epochs", [1, 5, 10, 20])
+#     n_epochs = trial.suggest_categorical("n_epochs", [5, 10, 20, 25, 30])
+#     # gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
+#     gae_lambda = trial.suggest_categorical("gae_lambda", [0.99, 0.999, 1.0])
+#     # max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
+#     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.2, 0.25, 0.3, 0.35, 0.4])
+#     # Smaller is better, but we don't know the actual right values yet
+#     # vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
+#     vf_coef = trial.suggest_float("vf_coef", 0, 0.35)
+#     net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+#     # Uncomment for gSDE (continuous actions)
+#     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+#     # Uncomment for gSDE (continuous action)
+#     # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
+#     # Orthogonal initialization
+#     ortho_init = False
+#     # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
+#     activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+#     # activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+#
+#     # TODO: account when using multiple envs
+#     if batch_size > n_steps:
+#         batch_size = n_steps
+#
+#     if lr_schedule == "linear":
+#         learning_rate = linear_schedule(learning_rate)
+#
+#     # Independent networks usually work best
+#     # when not working with images
+#     net_arch = {
+#         "small": dict(pi=[64, 64], vf=[64, 64]),
+#         "medium": dict(pi=[256, 256], vf=[256, 256]),
+#     }[net_arch]
+#
+#     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
+#
+#     return {
+#         "n_steps": n_steps,
+#         "batch_size": batch_size,
+#         "gamma": gamma,
+#         "learning_rate": learning_rate,
+#         "ent_coef": ent_coef,
+#         "clip_range": clip_range,
+#         "n_epochs": n_epochs,
+#         "gae_lambda": gae_lambda,
+#         "max_grad_norm": max_grad_norm,
+#         "vf_coef": vf_coef,
+#         # "sde_sample_freq": sde_sample_freq,
+#         "policy_kwargs": dict(
+#             # log_std_init=log_std_init,
+#             net_arch=net_arch,
+#             activation_fn=activation_fn,
+#             ortho_init=ortho_init,
+#         ),
+#     }
+#
+#
+# def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
+#     """
+#     Sampler for PPO hyperparams.
+#
+#     :param trial:
+#     :return:
+#     """
+#     batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512])
+#     n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
+#     gamma = trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999])
+#     learning_rate = trial.suggest_float("learning_rate", 1e-5, 1, log=True)
+#     lr_schedule = "constant"
+#     # Uncomment to enable learning rate schedule
+#     # lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
+#     ent_coef = trial.suggest_float("ent_coef", 0.00000001, 0.1, log=True)
+#     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
+#     n_epochs = trial.suggest_categorical("n_epochs", [1, 5, 10, 20])
+#     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
+#     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
+#     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
+#     net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+#     # Uncomment for gSDE (continuous actions)
+#     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+#     # Uncomment for gSDE (continuous action)
+#     # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
+#     # Orthogonal initialization
+#     ortho_init = False
+#     # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
+#     # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+#     activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+#
+#     # TODO: account when using multiple envs
+#     if batch_size > n_steps:
+#         batch_size = n_steps
+#
+#     if lr_schedule == "linear":
+#         learning_rate = linear_schedule(learning_rate)
+#
+#     # Independent networks usually work best
+#     # when not working with images
+#     net_arch = {
+#         "small": dict(pi=[64, 64], vf=[64, 64]),
+#         "medium": dict(pi=[256, 256], vf=[256, 256]),
+#     }[net_arch]
+#
+#     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
+#
+#     return {
+#         "n_steps": n_steps,
+#         "batch_size": batch_size,
+#         "gamma": gamma,
+#         "learning_rate": learning_rate,
+#         "ent_coef": ent_coef,
+#         "clip_range": clip_range,
+#         "n_epochs": n_epochs,
+#         "gae_lambda": gae_lambda,
+#         "max_grad_norm": max_grad_norm,
+#         "vf_coef": vf_coef,
+#         # "sde_sample_freq": sde_sample_freq,
+#         "policy_kwargs": dict(
+#             # log_std_init=log_std_init,
+#             net_arch=net_arch,
+#             activation_fn=activation_fn,
+#             ortho_init=ortho_init,
+#         ),
+#     }
+
+
+def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
+    """
+    Sampler for PPO hyperparams.
+
+    :param trial:
+    :return:
+    """
+    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096])
+    # batch_size = trial.suggest_categorical("batch_size", [32, 64, 128])
+    # n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
+    n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 5000])
+    # n_steps = trial.suggest_categorical("n_steps", [4, 8, 16])
+    # gamma = trial.suggest_categorical("gamma", [0.9, 0.95, 0.98, 0.99, 0.995, 0.999, 0.9999])
+    gamma = trial.suggest_float("gamma", 0.9, 0.9999, step=0.01998)
+    # gamma = trial.suggest_categorical("gamma", [0.995, 0.999, 0.9999])
+    learning_rate = trial.suggest_float("learning_rate", 1e-7, 1e-3, log=True)
+    # learning_rate = trial.suggest_float("learning_rate", 1e-5, 0.015, log=True)
+    lr_schedule = "constant"
+    # Uncomment to enable learning rate schedule
+    # lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
+    ent_coef = trial.suggest_float("ent_coef", 0.0013, 0.1, step=np.round(0.1 - 0.0013, decimals=4) / 6)
+    # ent_coef = trial.suggest_float("ent_coef", 0.00000001, 0.1, log=True)
+    # ent_coef = trial.suggest_float("ent_coef", 1e-3, 0.1, log=True)
+    # clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
+    # clip_range = trial.suggest_categorical("clip_range", [0.05, 0.1, 0.15, 0.2])
+    clip_range = trial.suggest_float("clip_range", 0.1, 0.4, step=0.1)
+    # n_epochs = trial.suggest_categorical("n_epochs", [1, 5, 10, 20])
+    # n_epochs = trial.suggest_categorical("n_epochs", [3, 5, 10, 30])
+    # n_epochs = trial.suggest_categorical("n_epochs", [1, 3, 5, 10, 30])
+    n_epochs = trial.suggest_int("n_epochs", 3, 30, step=3)
+    # gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
+    gae_lambda = trial.suggest_float("gae_lambda", 0.9, 1.0, step=0.02)
+    # gae_lambda = trial.suggest_categorical("gae_lambda", [0.995, 0.999, 0.9999])
+    # max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
+    max_grad_norm = trial.suggest_float("max_grad_norm", 0.3, 4.7, step=0.4)
+    # max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.4, 0.5, 0.6])
+    # Smaller is better, but we don't know the actual right values yet
+    # vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
+    # vf_coef = trial.suggest_float("vf_coef", 0.11, 0.135)
+    vf_coef = trial.suggest_float("vf_coef", 0.4, 1., step=0.1)
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", 'large'])
+    # Uncomment for gSDE (continuous actions)
+    # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+    # Uncomment for gSDE (continuous action)
+    # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
+    # Orthogonal initialization
+    ortho_init = False
+    # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
+    # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'elu'])
+    activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+    # activation_fn = trial.suggest_categorical('activation_fn', ['leaky_relu'])
+    # activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+
+    # TODO: account when using multiple envs
+    if batch_size > n_steps:
+        batch_size = n_steps
+
+    if lr_schedule == "linear":
+        learning_rate = linear_schedule(learning_rate)
+
+    # Independent networks usually work best
+    # when not working with images
+    net_arch = {
+        "small": dict(pi=[64, 64], vf=[64, 64]),
+        "medium": dict(pi=[256, 256], vf=[256, 256]),
+        "large": dict(pi=[512, 512], vf=[512, 512]),
     }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]

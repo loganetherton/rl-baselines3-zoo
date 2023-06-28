@@ -253,6 +253,8 @@ def train() -> None:
     )
 
     # Prepare experiment and launch hyperparameter optimization if needed
+    if exp_manager.env_kwargs:
+        print(f'Using environment kwargs: {exp_manager.env_kwargs}')
     results = exp_manager.setup_experiment()
     if results is not None:
         model, saved_hyperparams = results

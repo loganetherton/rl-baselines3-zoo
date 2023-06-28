@@ -439,7 +439,7 @@ class StoreDict(argparse.Action):
     """
     Custom argparse action for storing dict.
 
-    In: args1:0.0 args2:"dict(a=1)"
+        In: args1:0.0 args2:"dict(a=1)"
     Out: {'args1': 0.0, arg2: dict(a=1)}
     """
 
@@ -449,12 +449,17 @@ class StoreDict(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         arg_dict = {}
-        for arguments in values:
-            key = arguments.split(":")[0]
-            value = ":".join(arguments.split(":")[1:])
-            # Evaluate the string as python code
-            arg_dict[key] = eval(value)
-        setattr(namespace, self.dest, arg_dict)
+        # Passing in a string of values
+        if len(values) == 1:
+            arg_dict = {v[0]: eval(v[1]) for v in [_v.split(':') for _v in values[0].split(' ')]}
+            setattr(namespace, self.dest, arg_dict)
+        else:
+            for arguments in values:
+                key = arguments.split(":")[0]
+                value = ":".join(arguments.split(":")[1:])
+                # Evaluate the string as python code
+                arg_dict[key] = eval(value)
+            setattr(namespace, self.dest, arg_dict)
 
 
 def get_model_path(
